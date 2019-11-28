@@ -1,0 +1,84 @@
+TOKEN
+	Name  = "IntelGigabitLan_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable Intel Gigabit Lan network chip support in Project"
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetMAK = Yes
+	TargetH = Yes
+	Master = Yes
+End
+
+TOKEN
+	Name  = "GigabitLanDependency"
+	Value  = "0"
+	Help  = "Switch dependency file to \0-IntelGigabitLanBinFdfFileStatement.txt,\1-IntelGigabitLan.inf"
+	TokenType = Integer
+	TargetMAK = Yes
+	TargetH = Yes
+End
+
+TOKEN
+    Name  = "GBE_FILE_INF_PATH"
+    Value  = "IntelGigabitLanPkg/IntelGigabitLan.txt"
+    TokenType = Expression
+    TargetMAK = Yes
+    TOKEN = "GigabitLanDependency" "=" "1"
+End
+
+MODULE
+    Help  = "Includes IntelGigabitLan.mak to Project"
+    File  = "IntelGigabitLan.mak"
+    TOKEN = "GigabitLanDependency" "=" "1"
+End
+
+INFComponent
+        Name  = "IntelGigabitLanDxe"
+        File  = "IntelGigabitLanDxe.inf"
+        Package  = "IntelGigabitLanPkg"
+	ModuleTypes  = "DXE_DRIVER"
+	Token = "GigabitLanDependency" "=" "1"
+End
+
+INFComponent
+	Name = "IntelGigabitLan"
+	File = "../Build/IntelGigabitLan.inf"
+	Package = "IntelGigabitLanPkg"
+	ModuleTypes = "UEFI_DRIVER"	
+	TOKEN = "GigabitLanDependency" "=" "1"
+End
+
+TOKEN
+    Name  = "GBE_DXS_FILE_PATH"
+    Value  = "IntelGigabitLanPkg/IntelGigabitLan.dxs"
+    TokenType = Expression
+    TargetMAK = Yes
+    TargetFDF = Yes
+    Help  = "GBE DXS File name and path"
+    TOKEN = "GigabitLanDependency" "=" "1"    
+End
+
+TOKEN
+    Name  = "GBE_IA32_EFI_FILE_PATH"
+    Value  = "IntelGigabitLanPkg/Ia32/IntelGigabitLan.efi"
+    TokenType = Expression
+    TargetMAK = Yes
+    TargetFDF = Yes
+    Help  = "GBE IA32 EFI File name and path"
+End
+
+TOKEN
+    Name  = "GBE_EFI_FILE_PATH"
+    Value  = "IntelGigabitLanPkg/X64/IntelGigabitLan.efi"
+    TokenType = Expression
+    TargetMAK = Yes
+    TargetFDF = Yes
+    Help  = "GBE X64 EFI File name and path"
+End
+
+FFS_FILE
+	Name  = "IntelGigabitLan"
+	FD_AREA  = "FV_MAIN"
+	FILE_Stmt  = "IntelGigabitLanPkg\IntelGigabitLanBinFdfFileStatement.txt"
+	Token = "GigabitLanDependency" "=" "0"
+End

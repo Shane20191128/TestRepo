@@ -1,0 +1,19 @@
+<component>
+	name = "IntelGigabitLan"
+	category = eModule
+	LocalRoot = "IntelGigabitLanPkg\"
+	RefName = "IntelGigabitLan"
+[INF]	
+"IntelGigabitLanDxe.inf"
+	
+[files]
+"IntelGigabitLan.txt"
+"IntelGigabitLan.mak"
+"Ia32\IntelGigabitLan.efi"
+"X64\IntelGigabitLan.efi"
+"IntelGigabitLan.sdl"		
+"IntelGigabitLan.dec"	
+"IntelGigabitLan.dxs"		
+"IntelGigabitLanBinFdfFileStatement.txt"	
+"IntelGigabitLan.chm"	
+<endComponent>
