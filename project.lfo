@@ -1,0 +1,5 @@
+<FileOverrides>
+    <Component SDL="ZOEMPkg\OemCodeOverride\OemCodeOverride.sdl">
+        <File OriPath="SkyBayPkg\Crb.mak" Override="ZOEMPkg\OemCodeOverride\OVERRIDE\SkyBayPkg\Crb.mak"/>
+    </Component>
+</FileOverrides>
