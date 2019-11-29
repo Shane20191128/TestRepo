@@ -1,0 +1,223 @@
+TOKEN
+    Name  = "Certificates_SUPPORT"
+    Value  = "0"
+    Help  = "Main switch to enable build rules to create secure variables in Project"
+    TokenType = Boolean
+    TargetMAK = Yes
+    TargetH = Yes
+    Master = Yes
+End
+
+TOKEN
+    Name  = "Make_SignedVariables"
+    Value  = "0"
+    Help  = "0- Secure Boot variables are created with dummy AuthHdr.\1 - Secure Variables are signed with corresponding PK or KEK key.\NOTE: Msft SigntTool.exe only runs under Windows OS environment"
+    TokenType = Boolean
+    TargetMAK = Yes
+    TargetH = Yes
+End
+
+TOKEN
+    Name  = "SIGOWNER_GUID_FILE"
+    Value  = "OwnerGuid.h"
+    Help  = "Generic name for the Header file containing SIGOWNER_GUID definition which identifies the agent who added the signature to the list.\Each Certificate Store folder must include single Owner Guid file."
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "PkVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)PK.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "KekVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)KEK.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)db.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbtVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)dbt.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbxVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)dbx.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbrVarName"
+    Value  = "$(BUILD_DIR)$(PATH_SLASH)dbr.var"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "PFX_Password"
+    Value  = " "
+    Help  = "Specifies the password to use when opening a PFX - Private Key container file."
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "PK_signedBy"
+    Value  = "NULL"
+    Help  = "File name(.pfx) with the private key used for signing PK package"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "KEK_Append"
+    Value  = "0"
+    Help  = "Use Append attribute while signing Secure Variable package"
+    TokenType = Boolean
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "KEK_signedBy"
+    Value  = "$(PK_signedBy)"
+    Help  = "File name(.pfx) with the private key used for signing KEK package"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "db_Append"
+    Value  = "0"
+    Help  = "Use Append attribute while signing Secure Variable package"
+    TokenType = Boolean
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "db_signedBy"
+    Value  = "$(PK_signedBy)"
+    Help  = "File name(.pfx) with the private key used for signing db(x) package"
+    TokenType = Expression
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbt_Append"
+    Value  = "0"
+    Help  = "Use Append attribute while signing Secure Variable package"
+    TokenType = Boolean
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbx_Append"
+    Value  = "0"
+    Help  = "Use Append attribute while signing Secure Variable package"
+    TokenType = Boolean
+    TargetMAK = Yes
+End
+
+TOKEN
+    Name  = "dbr_Append"
+    Value  = "0"
+    Help  = "Use Append attribute while signing Secure Variable package"
+    TokenType = Boolean
+    TargetMAK = Yes
+End
+
+PATH
+    Name  = "Certificates_DIR"
+    Help  = "Path to Certificates Module in Project"
+End
+
+MODULE
+    File  = "Certificates.mak"
+    Token = "Make_SignedVariables" "=" "0"
+End
+
+MODULE
+    Help  = "Includes MakeSignVars.mak to Project"
+    File  = "MakeSignVars.mak"
+    Token = "Make_SignedVariables" "=" "1"
+End
+
+ELINK
+    Name  = "CertList_db"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "CertList_dbt"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "CertList_dbx"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "CertList_dbr"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "CertList_KEK"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "CertList_PK"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(PkVarName)"
+    Parent  = "$(PkVarFile)"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(KekVarName)"
+    Parent  = "$(KekVarFile)"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(dbVarName)"
+    Parent  = "$(dbVarFile)"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(dbtVarName)"
+    Parent  = "$(dbtVarFile)"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(dbxVarName)"
+    Parent  = "$(dbxVarFile)"
+    InvokeOrder = ReplaceParent
+End
+
+ELINK
+    Name  = "$(dbrVarName)"
+    Parent  = "$(dbrVarFile)"
+    InvokeOrder = ReplaceParent
+End
+

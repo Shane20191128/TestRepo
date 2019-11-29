@@ -1,0 +1,20 @@
+<component>
+	name = "SecureBoot,Create OEM Variables"
+	category = eModule
+	LocalRoot = "Keys\Variables\Certificates\"
+	RefName = "SecureBootCertificates"
+[files]
+"Certificates.chm"
+"Certificates.sdl"
+"Certificates.mak"
+"MakeSignVars.mak"
+"serialize.bat"
+"serialize.c"
+"authhdr.bat"
+"authhdr.c"
+"buildsig.bat"
+"siglist.c"
+[parts]
+"OemCert"
+"VendorMcert"
+<endComponent>
